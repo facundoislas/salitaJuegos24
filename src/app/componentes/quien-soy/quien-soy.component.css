@@ -1,8 +1,9 @@
 .fondo{
 
     background: black;
-    height: 100%;
-   
+    margin-top: -4%;
+    width: 100vw;
+    height: 100vh;
   }
   
 body {

@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "saladejuegos24-6ac32": {
+      "hosting": {
+        "salajuegos24": [
+          "saladejuegos24-6ac32"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "saladejuegos24-6ac32"
+  }
+}
