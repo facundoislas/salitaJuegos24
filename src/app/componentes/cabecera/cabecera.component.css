@@ -3,7 +3,7 @@ body {
 	height: 100%;
 	font-family: 'Roboto', sans-serif;
 	-webkit-font-smoothing: antialiased;
-	font-smoothing: antialiased;
+
 }
 
 
@@ -231,17 +231,6 @@ ol {
 
 .slicknav_menu {
 	display: none;
-}
-
-
-/* ----------------
-  Responsive
----------------------*/
-
-@media (min-width: 1200px) {
-	.container {
-		max-width: 1175px;
-	}
 }
 
 

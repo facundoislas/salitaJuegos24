@@ -26,6 +26,7 @@ export class LoginComponent {
   logeando=true;
   logueado!:boolean;
   ProgresoDeAncho!:string;
+ 
 
   clase="progress-bar progress-bar-info progress-bar-striped ";
   subscription: any;
@@ -34,6 +35,7 @@ export class LoginComponent {
     private router: Router,
     public authService : AuthService,
     private firestore: Firestore) {
+      
       this.progreso=0;
       this.ProgresoDeAncho="0%";
       const session = sessionStorage.getItem('user');
@@ -49,6 +51,7 @@ export class LoginComponent {
   }
 
   ngOnInit() {
+    sessionStorage.clear();
   }
 
   async entrar()

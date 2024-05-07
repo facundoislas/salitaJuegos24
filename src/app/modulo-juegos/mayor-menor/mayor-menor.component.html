@@ -1,0 +1,41 @@
+ 
+<div class="fondo">
+    <app-btn-volver></app-btn-volver>
+<div class="container" style="
+margin-top: -50px;">
+    <h1 style="color:rgb(255, 251, 4); text-align:center">Mayor o Menor</h1>
+    <div class="row" style="text-align:center">
+       
+        <div class="column" style="min-width: 50%; text-align: left; max-height: 80px">
+            <h2 style="color:rgb(255, 251, 4)">Acertaste: {{cuenta}} veces</h2>
+            <h4 style="color:rgb(255, 251, 4)">Te quedan {{vidas}} vidas</h4>
+            <br>  
+        </div>
+        <div  style="min-width: 50%; text-align: rigth; max-height: 80px" >  
+           <h2 *ngIf='mostrarFin' style="color:rgb(255, 251, 4)">Tu puntaje final es : {{cuenta}}</h2>
+           <br> 
+            <button   class="btn btn-danger" role="button"  style="margin-right: 5px; width: 200px;" *ngIf='mostrarFin' (click)='reload()'>Reintentar</button>
+        </div>
+    </div>
+
+  
+    <div  style="text-align: center;     margin-top: -80px;">
+        <div class="column "  >
+            <img width="250px"     style="
+            border-radius: 30px" src={{cartaPrincipal.pathImg}}>
+        </div>
+        <div class="column" *ngIf='!mostrarFin'>
+            <h3 style="color:rgb(255, 251, 4)">La carta que sigue es </h3>  
+            <div>
+            <button class="btn btn-primary btn-lg" style="margin-right: 10px;" (click)='play("mayor")'>Mayor</button>
+            <button class="btn btn-warning btn-lg" (click)='play("igual")' style="margin-right: 10px;">Igual</button>
+            <button class="btn btn-success btn-lg"(click)='play("menor")'>Menor</button> </div>
+            <h3 style="color:rgb(255, 251, 4)">que la actual</h3>
+        </div> 
+    </div>
+    <div>
+        
+      </div>
+</div>
+<div id="snackbar">{{Mensaje}}</div>
+</div>

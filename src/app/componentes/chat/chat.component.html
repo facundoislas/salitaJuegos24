@@ -1,0 +1,48 @@
+
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+<body>
+    <div class="fondo">
+    
+    
+            
+                <div class="panel panel-primary" >
+                    <div class="panel-heading">
+                        <span class="glyphicon glyphicon-comment"></span>
+                        <div class="btn-group pull-right">
+                            
+                        </div>
+                    </div>
+                    <div class="panel-body" >
+                        <ul class="chat" *ngFor="let msj of mensajes">
+                            <li class="left clearfix"><span class="chat-img pull-left">
+                                <div>
+                                <p>{{msj.usuario}}
+                                </p></div>
+                            </span>
+                                <div class="chat-body clearfix">
+                                    <div class="header">
+                                        <strong class="primary-font" style="margin-left: 60px;">{{msj.mensaje}}</strong> <small class="pull-right text-muted">
+                                            <span class="glyphicon glyphicon-time"></span>{{msj.hora | date: 'HH:mm dd-MM-yyyy'}}</small>
+                                    </div>
+                                   
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="panel-footer">
+                        <div class="input-group">
+                            <input id="btn-input" type="text" class="form-control input-sm" placeholder="Escribe tu mensaje aquí..."  
+                            [(ngModel)]='mensaje.texto'/>
+                            <span class="input-group-btn">
+                                <button class="btn btn-warning btn-sm" id="btn-chat" onkeypress="handleKeyPress(event)" (click)="guardarMensaje()">
+                                    Enviar</button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+    <div>

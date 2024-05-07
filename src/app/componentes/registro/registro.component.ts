@@ -33,6 +33,7 @@ export class RegistroComponent {
 
   constructor(private fire: Firestore, private authService: AuthService, private router: Router, private fb: FormBuilder)
   {
+    
     this.usuario = new Usuario;
     this.progreso=0;
     this.ProgresoDeAncho="0%";
@@ -50,6 +51,7 @@ export class RegistroComponent {
   })
 
   ngOnInit() {
+    sessionStorage.clear();
   }
 
   async enviar()
