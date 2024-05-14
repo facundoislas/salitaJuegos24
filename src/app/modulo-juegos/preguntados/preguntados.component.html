@@ -1,0 +1,41 @@
+
+<div class="fondo">
+    <app-btn-volver></app-btn-volver>
+    <h1 style="color:rgb(255, 251, 4); text-align:center">Preguntados Harry Potter</h1>
+    <div *ngIf="this.termino" class="column" style="min-width: 50%; text-align: center; max-height: 80px">
+      <h2  style="color:rgb(255, 251, 4)">Acertaste: {{cuenta}}/5</h2></div>
+      <div class="form">
+        <div *ngIf="!cargo || vidas==0" style="padding: 12%;">
+          
+          <button  *ngIf="!showSpinner"class="NuevoJuegobtn" (click)="cargarPersonaje()">Nuevo Juego</button>
+          <span class="loader" *ngIf="showSpinner" style="text-align: center;">
+            <!-- Aquí puedes agregar el código HTML o el ícono de carga -->
+          </span>
+        </div>
+          <div  *ngIf="cargo && vidas>0">
+  
+            <div class="column" style="min-width: 50%; text-align: center; max-height: 80px">
+              <h2 style="color:rgb(255, 251, 4)">Acertaste: {{cuenta}}/ 5</h2>
+              
+              <br>  
+          </div>
+          
+        <img style="float: left;margin-left: 220px;" src="{{personaje.image}}" height="325px" width="325px">
+        <br><br>
+        <div *ngFor="let op of opciones" >
+        <input type="radio" name="op"  value="{{op}}" [(ngModel)]="eleccion"><label style="color: lightgreen;">{{op}}</label>
+        <br><br>
+      </div>
+      
+  
+     
+      <button style="display: block;
+      margin-left: 30%;" class="Verificarbtn" (click)="verificar()">Verificar</button>
+       <button style="display: block;
+       margin-left: 30%;" class="Verificarbtn2" (click)="reiniciar()">Reiniciar</button>
+    </div>  
+  
+    </div>
+     
+    <div id="snackbar">{{Mensaje}}</div>
+      </div>
