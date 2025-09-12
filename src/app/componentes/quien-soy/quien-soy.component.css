@@ -1,17 +1,24 @@
-.fondo{
-
+.fondo {
+    position: fixed;
+    top: 15vh; /* Nueva altura del header */
+    left: 0;
     background: black;
-    margin-top: -4%;
-    width: 100vw;
-    height: 100vh;
-  }
+    width: 100%;
+    height: calc(100vh - 22vh); /* 100vh - (15vh header + 7vh footer) */
+    overflow-y: auto; /* Permite scroll si el contenido es muy largo */
+}
   
 body {
-    font-family: 'Roboto';font-size: 16px;
+    font-family: 'Roboto';
+    font-size: 16px;
+    margin: 0;
+    padding: 0;
 }
 
 .aboutus-section {
-    padding: 46px 0;
+    padding: 20px 0;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 .aboutus-title {
     font-size: 30px;
@@ -36,8 +43,9 @@ body {
 .aboutus-text {
     color: #ced5ec;
     font-size: 20px;
-    line-height: 22px;
+    line-height: 1.6;
     margin: 0 0 35px;
+    padding: 0 20px;
 }
 
 a:hover, a:active {
@@ -63,8 +71,10 @@ a:hover, a:active {
     position: relative;
     width: 6%;
 }
-.feature{
-    margin-left: 20%;
+.feature {
+    padding: 20px;
+    margin: 0 auto;
+    max-width: 80%;
 }
 
 

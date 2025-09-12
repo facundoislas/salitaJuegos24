@@ -6,19 +6,40 @@ img {
 .container {
     padding: 2px 16px;
     display: -webkit-box;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 40px;
+    padding: 0;
+    width: 100%;
 }
   
   
-  .fondo{
-
+  .fondo {
+    margin-top: 107px;
     background-image: url("/assets/imagenes/slider-bg-2.jpg");
-    margin-top: -60px;
-    padding: 37px;
+    padding: 60px 0 0 0;
     width: 100vw;
-    height: 100vh;
+    min-height: calc(100vh - 22vh);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
-  .box4{position:relative; padding: 10px;}
+  .box4 {
+    position: relative;
+    background: rgba(0,0,0,0.6);
+    border-radius: 20px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.3);
+    padding: 20px 10px 15px 10px;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 300px;
+    min-width: 250px;
+}
 .box4:before{width:0;height:200%;background:rgba(0,0,0,.5);position:absolute;top:0;left:-250px;bottom:0;transform:skewX(-36deg);transition:all .5s ease 0s}
 .box4:hover:before{width:200%}
 .box4 img{width:100%;}
@@ -36,4 +57,13 @@ img {
 }
 @media only screen and (max-width:767px){.box4:before{left:-400px}
 .box4:hover:before{width:300%}
+}
+@media (max-width: 991px) {
+    .container {
+        gap: 20px;
+    }
+    .box4 {
+        max-width: 90vw;
+        min-width: 200px;
+    }
 }

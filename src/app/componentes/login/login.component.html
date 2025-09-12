@@ -6,29 +6,50 @@
                 <div class="card">
                     <div class="card-header">
                         <h3>Ingreso</h3>
-            
+                    </div>
                 
                     <div class="card-body">
-                        <form>
+                        <form #loginForm="ngForm">
                             <div class="input-group form-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fa fa-user"></i></span>
                     </div>
-                    <input type="text" placeholder="Usuario" class="form-control"   name="uname" required [(ngModel)]="this.user.email">
-                            
-                                
+                    <input type="email" 
+                           placeholder="Usuario" 
+                           class="form-control" 
+                           name="uname" 
+                           required 
+                           email
+                           [(ngModel)]="this.user.email"
+                           #emailInput="ngModel">
+                            </div>
+                            <div *ngIf="emailInput.invalid && emailInput.touched" class="text-danger">
+                              <small *ngIf="emailInput.errors?.['required']">El email es requerido</small>
+                              <small *ngIf="emailInput.errors?.['email']">Ingrese un email válido</small>
                             </div>
                             <div class="input-group form-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fa fa-key"></i></span>
                     </div>
-                    <input type="password" placeholder="Clave" class="form-control"   name="psw" [(ngModel)]="this.user.password" required>
-                            
+                    <input type="password" 
+                           placeholder="Clave" 
+                           class="form-control" 
+                           name="psw" 
+                           [(ngModel)]="this.user.password" 
+                           required
+                           minlength="6"
+                           #passwordInput="ngModel">
+                            </div>
+                            <div *ngIf="passwordInput.invalid && passwordInput.touched" class="text-danger">
+                              <small *ngIf="passwordInput.errors?.['required']">La contraseña es requerida</small>
+                              <small *ngIf="passwordInput.errors?.['minlength']">La contraseña debe tener al menos 6 caracteres</small>
                             </div> 
                             <div class="form-group" *ngIf="logeando">
-                                <button  class="btn btn-primary" (click)="entrar()" >Ingresar</button>
-                      <button   class="btn btn-primary"  (click)="admin()">Ingresar como admin</button>
-                      <button class="btn btn-primary"   (click)="usuario()">Ingresar como invitado</button>
+                                <button class="btn btn-primary" 
+                                        (click)="entrar()" 
+                                        [disabled]="loginForm.invalid">Ingresar</button>
+                      <button class="btn btn-primary" (click)="admin()">Ingresar como admin</button>
+                      <button class="btn btn-primary" (click)="usuario()">Ingresar como invitado</button>
                   </div>
                   <div *ngIf="!logeando">
                   <div  class="progress" >
@@ -46,10 +67,12 @@
                     </div>
                     
                 </div>
+                
+                <!-- Mensaje de notificación -->
+                <div>
+                    <div id="snackbar">{{Mensaje}}</div>
+                </div>
           </div>
           
         </div>
-        <div>
-            <div id="snackbar">{{Mensaje}}</div>
-          </div>
     </div>

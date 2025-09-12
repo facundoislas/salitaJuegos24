@@ -70,16 +70,14 @@ ol {
 ---------------------*/
 
 .header-section {
-	position: relative;
+	position: fixed;
 	width: 100%;
 	left: 0;
-	top: -60px;
+	top: 0;
 	z-index: 99;
-	padding: 50px 50px 0;
 	background-image: url("./../../../assets/imagenes/cabecera.png");
-	height: 33%;
-	
-
+	height: 15vh;
+	padding: 10px 50px 0;
 }
 
 .header-warp {

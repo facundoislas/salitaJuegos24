@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import {addDoc, collection, getDoc, getDocs, updateDoc, Firestore } from '@angular/fire/firestore';
 import { AuthService } from '../../servicios/auth.service';
-import { interval, timeInterval } from 'rxjs';
+import { interval, timeInterval, Subscription } from 'rxjs';
 import { FormsModule, NgModel } from '@angular/forms';
 
 @Component({
@@ -13,7 +13,7 @@ import { FormsModule, NgModel } from '@angular/forms';
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit, OnDestroy {
 
 
   
@@ -29,7 +29,7 @@ export class LoginComponent {
  
 
   clase="progress-bar progress-bar-info progress-bar-striped ";
-  subscription: any;
+  subscription: Subscription | null = null;
 
   constructor(
     private router: Router,
@@ -54,28 +54,41 @@ export class LoginComponent {
     sessionStorage.clear();
   }
 
+  ngOnDestroy() {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
+  }
+
   async entrar()
   {
-    
+    if (!this.user.email || !this.user.password) {
+      this.MostarMensaje("Por favor complete todos los campos", true);
+      return;
+    }
 
-		const user = this.authService.login(this.user.email, this.user.password);
     this.MoverBarraDeProgreso();
-		if (await user) {
-      //this.mostrarSpinner = true;
-      await new Promise(resolve => setTimeout(resolve, 2500));
-      sessionStorage.setItem("user",this.user.email);
-      sessionStorage.setItem("muestra","true");
-			this.router.navigateByUrl('/home', { replaceUrl: true });
-      this.guardarLogLogin();
+    
+    try {
+      const user = await this.authService.login(this.user.email, this.user.password);
       
-      
-		} else {
-			this.MostarMensaje("Usuario o Clave incorrectos", true);
+      if (user) {
+        await new Promise(resolve => setTimeout(resolve, 2500));
+        sessionStorage.setItem("user", this.user.email);
+        sessionStorage.setItem("muestra", "true");
+        this.router.navigateByUrl('/home', { replaceUrl: true });
+        this.guardarLogLogin();
+      } else {
+        this.MostarMensaje("Usuario o Clave incorrectos", true);
+        this.borrar();
+        this.logeando = true;
+      }
+    } catch (error) {
+      console.error('Error en login:', error);
+      this.MostarMensaje("Error de conexión. Intente nuevamente", true);
       this.borrar();
-      this.logeando=true;
-		} 
-  
-    //this.mostrarSpinner = false;
+      this.logeando = true;
+    }
   }
 
   guardarLogLogin()
@@ -120,7 +133,9 @@ export class LoginComponent {
           
         case 100:
           console.log("final");
-          this.subscription.unsubscribe();
+          if (this.subscription) {
+            this.subscription.unsubscribe();
+          }
           break;
       }     
     });

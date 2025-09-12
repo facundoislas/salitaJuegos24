@@ -15,7 +15,16 @@ export class AuthService {
 			const user = await signInWithEmailAndPassword(this.auth, email, password);
       this.user = user;
 			return user;
-		} catch (e) {
+		} catch (e: any) {
+      console.error('Error en login:', e);
+      // Manejo específico de errores de Firebase
+      if (e.code === 'auth/user-not-found') {
+        console.error('Usuario no encontrado');
+      } else if (e.code === 'auth/wrong-password') {
+        console.error('Contraseña incorrecta');
+      } else if (e.code === 'auth/invalid-email') {
+        console.error('Email inválido');
+      }
 			return null;
 		}
 	}
@@ -31,8 +40,14 @@ export class AuthService {
       this.user = user;
       return user;
     }
-    catch(e)
+    catch(e: any)
     {
+      console.error('Error en registro:', e);
+      if (e.code === 'auth/email-already-in-use') {
+        console.error('El email ya está en uso');
+      } else if (e.code === 'auth/weak-password') {
+        console.error('La contraseña es muy débil');
+      }
       return null;
     }
   }

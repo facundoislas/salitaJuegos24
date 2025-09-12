@@ -1,12 +1,23 @@
+.fondo {
+    position: fixed;
+    top: 15vh;
+    left: 0;
+    background-color: rgb(234, 237, 238);
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+    height: calc(100vh - 22vh);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
 body {
-    
-    background-color:rgb(234, 237, 238);
-    background-attachment:scroll;
-    background-repeat:no-repeat;
-    background-position:center;
-    background-size:cover;
-    line-height:5px; 
-    }
+    margin: 0;
+    padding: 0;
+    line-height: 1.5;
+}
     .display-1 {text-align:center;color:#e1b7b7;}
     .display-1 .fa {animation:fa-spin 5s infinite linear;}
     .display-3 {text-align:center;color:#df726a;}

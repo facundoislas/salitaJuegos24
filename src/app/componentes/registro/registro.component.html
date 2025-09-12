@@ -1,88 +1,143 @@
-<body class="fondo">
-    <div class="container">
-    <!---heading---->
-        <header class="heading"> Formulario de Registro</header>
-        <form [formGroup]="formRegistro" *ngIf="logeando">
-     <!---Form starting----> 
-     <div class="row " style="margin-left: 70px;">
-      <!--- For Name---->
-            <div class="col-sm-12">
-                <div class="row">
-              <div class="col-xs-4">
-                        <label class="firstname"></label> </div>
-                <div class="col-xs-8">
-                    <input type="text" name="fname" id="fname" formControlName="nombre" placeholder="Nombre" class="form-control " [(ngModel)]="this.usuario.nombre">
+<body>
+    <div class="fondo">
+        <div class="container">
+            <div class="d-flex justify-content-center h-100">
+                <div class="card" [class.progress-mode]="!logeando">
+                    <div class="card-header">
+                        <h3>Registro</h3>
+                    </div>
+                
+                    <div class="card-body">
+                        <form [formGroup]="formRegistro" #registroForm="ngForm" *ngIf="logeando">
+                            <!-- Nombre -->
+                            <div class="input-group form-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fa fa-user"></i></span>
+                                </div>
+                                <input type="text" 
+                                       placeholder="Nombre *" 
+                                       class="form-control" 
+                                       name="nombre" 
+                                       formControlName="nombre"
+                                       [class.is-invalid]="formRegistro.get('nombre')?.invalid && formRegistro.get('nombre')?.touched">
+                            </div>
+                            <div *ngIf="formRegistro.get('nombre')?.invalid && formRegistro.get('nombre')?.touched" class="text-danger">
+                              <small *ngIf="formRegistro.get('nombre')?.errors?.['required']">El nombre es requerido</small>
+                              <small *ngIf="formRegistro.get('nombre')?.errors?.['minlength']">El nombre debe tener al menos 3 caracteres</small>
+                            </div>
+                            
+                            <!-- Apellido -->
+                            <div class="input-group form-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fa fa-user"></i></span>
+                                </div>
+                                <input type="text" 
+                                       placeholder="Apellido *" 
+                                       class="form-control" 
+                                       name="apellido" 
+                                       formControlName="apellido"
+                                       [class.is-invalid]="formRegistro.get('apellido')?.invalid && formRegistro.get('apellido')?.touched">
+                            </div>
+                            <div *ngIf="formRegistro.get('apellido')?.invalid && formRegistro.get('apellido')?.touched" class="text-danger">
+                              <small *ngIf="formRegistro.get('apellido')?.errors?.['required']">El apellido es requerido</small>
+                              <small *ngIf="formRegistro.get('apellido')?.errors?.['minlength']">El apellido debe tener al menos 2 caracteres</small>
+                            </div>
+                            
+                            <!-- Email -->
+                            <div class="input-group form-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fa fa-envelope"></i></span>
+                                </div>
+                                <input type="email" 
+                                       placeholder="Correo Electrónico *" 
+                                       class="form-control" 
+                                       name="email" 
+                                       formControlName="email"
+                                       [class.is-invalid]="formRegistro.get('email')?.invalid && formRegistro.get('email')?.touched">
+                            </div>
+                            <div *ngIf="formRegistro.get('email')?.invalid && formRegistro.get('email')?.touched" class="text-danger">
+                              <small *ngIf="formRegistro.get('email')?.errors?.['required']">El email es requerido</small>
+                              <small *ngIf="formRegistro.get('email')?.errors?.['email']">Ingrese un email válido</small>
+                            </div>
+                            
+                            <!-- Contraseña -->
+                            <div class="input-group form-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fa fa-key"></i></span>
+                                </div>
+                                <input type="password" 
+                                       placeholder="Contraseña * (6-8 caracteres)" 
+                                       class="form-control" 
+                                       name="contrasena" 
+                                       formControlName="contrasena"
+                                       [class.is-invalid]="formRegistro.get('contrasena')?.invalid && formRegistro.get('contrasena')?.touched">
+                            </div>
+                            <div *ngIf="formRegistro.get('contrasena')?.invalid && formRegistro.get('contrasena')?.touched" class="text-danger">
+                              <small *ngIf="formRegistro.get('contrasena')?.errors?.['required']">La contraseña es requerida</small>
+                              <small *ngIf="formRegistro.get('contrasena')?.errors?.['minlength']">La contraseña debe tener al menos 6 caracteres</small>
+                              <small *ngIf="formRegistro.get('contrasena')?.errors?.['maxlength']">La contraseña no puede tener más de 8 caracteres</small>
+                            </div>
+                            
+                            <!-- Confirmar Contraseña -->
+                            <div class="input-group form-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fa fa-key"></i></span>
+                                </div>
+                                <input type="password" 
+                                       placeholder="Reingresar contraseña *" 
+                                       class="form-control" 
+                                       name="contrasena2" 
+                                       formControlName="contrasena2"
+                                       [class.is-invalid]="formRegistro.get('contrasena2')?.invalid && formRegistro.get('contrasena2')?.touched">
+                            </div>
+                            <div *ngIf="formRegistro.get('contrasena2')?.invalid && formRegistro.get('contrasena2')?.touched" class="text-danger">
+                              <small *ngIf="formRegistro.get('contrasena2')?.errors?.['required']">Debe confirmar la contraseña</small>
+                              <small *ngIf="formRegistro.get('contrasena2')?.errors?.['minlength']">La contraseña debe tener al menos 6 caracteres</small>
+                              <small *ngIf="formRegistro.get('contrasena2')?.errors?.['maxlength']">La contraseña no puede tener más de 8 caracteres</small>
+                            </div>
+                            <div *ngIf="formRegistro.get('contrasena')?.value !== formRegistro.get('contrasena2')?.value && formRegistro.get('contrasena2')?.touched && formRegistro.get('contrasena2')?.value" class="text-danger">
+                              <small>Las contraseñas no coinciden</small>
+                            </div>
+                        </form>
+                        
+                        <!-- Barra de progreso -->
+                        <div *ngIf="!logeando">
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-info progress-bar-striped active" 
+                                     [class]="clase" 
+                                     role="progressbar" 
+                                     aria-valuenow="10" 
+                                     aria-valuemin="0" 
+                                     aria-valuemax="100" 
+                                     [style.width]="ProgresoDeAncho">
+                                    {{progresoMensaje}} - {{progreso}}%
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     
+                    <!-- Footer fijo con botones -->
+                    <div class="card-footer" *ngIf="logeando">
+                        <div class="form-group">
+                            <button class="btn btn-primary" 
+                                    (click)="enviar()" 
+                                    [disabled]="formRegistro.invalid">Registrarse</button>
+                        </div>
+                        
+                        <div class="form-group">
+                            <div style="display: flex; justify-content: space-between; margin-top: 15px;">
+                                <button type="button" class="cancelbtn" (click)="borrar()">Cancelar</button>
+                                <button type="button" class="aceptbtn" routerLink="/login">Loguearse</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Mensaje de notificación -->
+                    <div>
+                        <div id="snackbar">{{Mensaje}}</div>
+                    </div>
                 </div>
-             </div>
-        </div>
-
-        <div class="col-sm-12">
-            <div class="row">
-          <div class="col-xs-4">
-                    <label class="firstname"></label> </div>
-            <div class="col-xs-8">
-                <input type="text" name="fname" id="fname" formControlName="apellido" placeholder="Apellido" class="form-control " [(ngModel)]="this.usuario.apellido">
             </div>
-         </div>
-    </div>
-        
-        <!-----For email---->
-        <div class="col-sm-12">
-            <div class="row">
-              <div class="col-xs-4">
-                    <label class="mail" ></label></div>
-              <div class="col-xs-8"	>	 
-                   <input type="email" name="email"  id="email" formControlName="email" placeholder="Correo Electrónico" class="form-control " [(ngModel)]="this.usuario.email" >
-                </div>
-            </div>
-        </div>
-      <!-----For Password and confirm password---->
-             <div class="col-sm-12">
-                <div class="row">
-                <div class="col-xs-4">
-                        <label class="pass"></label></div>
-             <div class="col-xs-8">
-                      <input type="password" name="password" id="password" formControlName="contrasena" placeholder="Contraseña" class="form-control" [(ngModel)]="this.usuario.pass">
-            </div>
-             </div>
-         </div>
-
-         <div class="col-sm-12">
-            <div class="row">
-            <div class="col-xs-4">
-                    <label class="pass"></label></div>
-         <div class="col-xs-8">
-                  <input type="password" name="password" id="password" formControlName="contrasena2" placeholder="Reingresar contraseña" class="form-control" [(ngModel)]="this.contrasena2">
-        </div>
-         </div>
-     </div>
-    
-        <!-----------For Phone number-------->
-            <div class="col-sm-12">
-            
-            <div class="col-sm-12"style="margin-left: -34px;">
-                <div class="btn btn-warning" (click)="enviar()">Enviar</div>
-          </div>
-          <br>
-          <div class="col-sm-12" style="margin-left: -34px;">
-            <div class="btn btn-warning" routerLink="/login" >Loguearse</div>
-      </div>
-      
-        </div>
-       
-      </div>	 
-      
-    </form> 
-    <div *ngIf="!logeando" style="margin-top:90%">
-      <div  class="progress" >
-        <div class="progress-bar progress-bar-info progress-bar-striped active" [class]="clase" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100" [style.width]="ProgresoDeAncho" >
-          {{progresoMensaje}} - {{progreso}}%
         </div>
     </div>
-     </div>
-      <div>
-        <div id="snackbar">{{Mensaje}}</div>
-      </div>
-   </div>
-   
+</body>

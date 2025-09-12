@@ -1,10 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Usuario } from '../../clases/usuario';
 import { Firestore, addDoc, collection } from '@angular/fire/firestore';
 import { AuthService } from '../../servicios/auth.service';
 import { Router, RouterModule } from '@angular/router';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { interval } from 'rxjs';
+import { interval, Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -14,7 +14,7 @@ import { CommonModule } from '@angular/common';
   templateUrl: './registro.component.html',
   styleUrl: './registro.component.css'
 })
-export class RegistroComponent {
+export class RegistroComponent implements OnInit, OnDestroy {
 
 
   usuario!: Usuario;
@@ -27,7 +27,7 @@ export class RegistroComponent {
   ProgresoDeAncho!:string;
 
   clase="progress-bar progress-bar-info progress-bar-striped ";
-  subscription: any;
+  subscription: Subscription | null = null;
   
 
 
@@ -54,53 +54,77 @@ export class RegistroComponent {
     sessionStorage.clear();
   }
 
+  ngOnDestroy() {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
+  }
+
   async enviar()
   {
-    if(this.formRegistro.valid)
-    {
-      if(this.usuario.pass == this.contrasena2)
-      {
+    if (!this.formRegistro.valid) {
+      this.MostarMensaje("Hay datos inválidos en el formulario, por favor revisarlos", true);
+      this.markAllFieldsAsTouched();
+      return;
+    }
+
+    const formValues = this.formRegistro.value;
+    if (formValues.contrasena !== formValues.contrasena2) {
+      this.MostarMensaje("Las contraseñas no coinciden, por favor revisarlas", true);
+      return;
+    }
+
+    // Asignar valores del formulario al objeto usuario
+    this.usuario.nombre = formValues.nombre || '';
+    this.usuario.apellido = formValues.apellido || '';
+    this.usuario.email = formValues.email || '';
+    this.usuario.pass = formValues.contrasena || '';
+    this.contrasena2 = formValues.contrasena2 || '';
+
+    this.MoverBarraDeProgreso();
+    
+    try {
+      const user = await this.authService.register(this.usuario.email, this.usuario.pass);
+      
+      if (user) {
+        await new Promise(resolve => setTimeout(resolve, 2500));
+        this.usuario.tipo = "usuario";
         
-        const user = this.authService.register(this.usuario.email, this.usuario.pass);
-        this.MoverBarraDeProgreso()
-        if(await user)
-        {
-          await new Promise(resolve => setTimeout(resolve, 2500));
-          this.usuario.tipo= "usuario";
-        const col= collection(this.fire, 'Usuarios');
-        addDoc(col, {
+        const col = collection(this.fire, 'Usuarios');
+        await addDoc(col, {
           email: this.usuario.email,
           nombre: this.usuario.nombre,
           apellido: this.usuario.apellido,
           tipo: this.usuario.tipo,
-          contraseña: this.usuario.pass
+          fechaRegistro: Date.now()
+          // Nota: No guardar contraseña en Firestore por seguridad
         });
-        sessionStorage.setItem("user",this.usuario.email);
-        sessionStorage.setItem("muestra","true");
         
+        sessionStorage.setItem("user", this.usuario.email);
+        sessionStorage.setItem("muestra", "true");
         this.router.navigateByUrl('/home', { replaceUrl: true });
-        } 
-        
-        else {
-			this.MostarMensaje("Usuario ya registrado, por favor utilice otro correo", true);
-      this.usuario = new Usuario;
-      this.contrasena2="";
-      this.logeando=true;
+      } else {
+        this.MostarMensaje("Usuario ya registrado, por favor utilice otro correo", true);
+        this.resetForm();
+      }
+    } catch (error) {
+      console.error('Error en registro:', error);
+      this.MostarMensaje("Error de conexión. Intente nuevamente", true);
+      this.resetForm();
     }
-       } 
-       else
-       {
-       this.MostarMensaje("Las contraseñas no coinciden, por favor revisarlas", true);
-       this.logeando=true;
-       }
+  }
 
-   
-    }
-    else
-    {
-    this.MostarMensaje("Hay datos invalidos en el formulario, por favor revisarlos", true);
-    this.logeando=true;
-    }
+  markAllFieldsAsTouched() {
+    Object.keys(this.formRegistro.controls).forEach(key => {
+      this.formRegistro.get(key)?.markAsTouched();
+    });
+  }
+
+  resetForm() {
+    this.usuario = new Usuario();
+    this.contrasena2 = "";
+    this.logeando = true;
+    this.formRegistro.reset();
   }
 
   MostarMensaje(mensaje:string,gano:boolean) {
@@ -113,8 +137,6 @@ export class RegistroComponent {
      x!.className = x!.className.replace("show", "");
      //modelo.ocultarVerificar=false;
     }, 3000);
-
-
   }
 
   MoverBarraDeProgreso() {
@@ -125,7 +147,7 @@ export class RegistroComponent {
     this.logeando=false;
     this.clase="progress-bar progress-bar-danger progress-bar-striped active";
     this.progresoMensaje="Iniciando comprobacion"; 
-    let timer = interval(30);
+    let timer = interval(25);
     this.subscription = timer.subscribe(t => {
       this.progreso=this.progreso+1;
       this.ProgresoDeAncho=this.progreso+15+"%";
@@ -153,10 +175,16 @@ export class RegistroComponent {
           
         case 100:
           console.log("final");
-          this.subscription.unsubscribe();
+          if (this.subscription) {
+            this.subscription.unsubscribe();
+          }
           break;
       }     
     });
+  }
+
+  borrar() {
+    this.resetForm();
   }
 
 }
