@@ -15,7 +15,7 @@
                                     <span class="input-group-text"><i class="fa fa-user"></i></span>
                     </div>
                     <input type="email" 
-                           placeholder="Usuario" 
+                           placeholder="Correo Electrónico" 
                            class="form-control" 
                            name="uname" 
                            required 
@@ -24,8 +24,8 @@
                            #emailInput="ngModel">
                             </div>
                             <div *ngIf="emailInput.invalid && emailInput.touched" class="text-danger">
-                              <small *ngIf="emailInput.errors?.['required']">El email es requerido</small>
-                              <small *ngIf="emailInput.errors?.['email']">Ingrese un email válido</small>
+                              <small *ngIf="emailInput.errors?.['required']">El correo es requerido</small>
+                              <small *ngIf="emailInput.errors?.['email']">Ingrese un correo válido</small>
                             </div>
                             <div class="input-group form-group">
                                 <div class="input-group-prepend">
@@ -48,8 +48,8 @@
                                 <button class="btn btn-primary" 
                                         (click)="entrar()" 
                                         [disabled]="loginForm.invalid">Ingresar</button>
-                      <button class="btn btn-primary" (click)="admin()">Ingresar como admin</button>
-                      <button class="btn btn-primary" (click)="usuario()">Ingresar como invitado</button>
+                      <button class="btn btn-primary" (click)="admin()">Ingresar como administrador</button>
+                      <button class="btn btn-primary" (click)="usuario()">Ingresar como usuario</button>
                   </div>
                   <div *ngIf="!logeando">
                   <div  class="progress" >
@@ -60,7 +60,8 @@
                  </div>
                   <div class="container" *ngIf="logeando" >
                     <button type="button" class="cancelbtn" (click)="borrar()">Cancelar</button>
-                    <button type="button" class="aceptbtn" routerLink="/registro" >Registrarse</button>
+                    <button type="button" class="aceptbtn" routerLink="/registro"  style="
+    margin-left: 30px;">Registrarse</button>
                   </div>
                   
                         </form>
