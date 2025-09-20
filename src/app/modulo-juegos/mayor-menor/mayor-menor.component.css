@@ -1,52 +1,133 @@
-.fondo{
-
-    background-image: url("/assets/imagenes/slider-bg-2.jpg");
-    margin-top: -60px;
-        padding: 3.5%;
-        width: 100vw;
-        height: 100vh;
-  }
-
-	.login_div1 , .login_div2
-	{
-		background: white;
-		padding: 10px;
-		float: none;
-		border-radius: 15px;
-	}
-	#ID_DIV_1 , #ID_DIV_2
-	{
-		background: white;
-		padding: 10px;
-		float: none;
-		border-radius: 15px;
-	}
-
-
-
-#player1_name , #player2_name
-{
-	display: inline-block;
-	margin-left: 20px;
+.mayor-menor-row-info {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 8px;
+    min-height: 60px;
 }
-#word
-{
-	width: 60%;
+.mayor-menor-info-izq {
+    flex: 0 0 auto;
 }
-#word_display
-{
-	letter-spacing: 5px;
+.mayor-menor-info-der {
+    flex: 0 0 auto;
+    margin-left: auto;
 }
-#output
-{
-background: white;
-border-radius: 10px;
-border-top: 10px solid #AA4465;
-padding: 10px;
-float: none;
-text-align: left;
+.mayor-menor-acertaste {
+    color: rgb(255, 251, 4);
+    margin: 0;
+    font-size: 2rem;
+}
+.mayor-menor-vidas {
+    color: rgb(255, 251, 4);
+    margin: 0;
+    font-size: 1.3rem;
+    font-weight: 500;
+}
+.mayor-menor-info-final {
+    margin-left: 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.mayor-menor-botones-stack button {
+    width: 160px;
+    min-width: 160px;
+    max-width: 160px;
+    font-size: 1.4rem;
+    font-weight: 500;
+    margin-left: auto;
+    margin-right: auto;
+}
+.mayor-menor-flex-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 32px;
+    margin-top: 32px;
 }
 
+.mayor-menor-img-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.mayor-menor-botones-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-width: 220px;
+    margin-left: 13%;
+}
+
+.mayor-menor-botones-stack {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+/* Overlay de bloqueo cuando el snackbar está visible */
+.ahorcado-overlay-bloqueo {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0,0.15);
+    z-index: 1000;
+    pointer-events: all;
+}
+
+.fondo {
+    position: fixed;
+    top: 15vh;
+    left: 0;
+    background: url("/assets/imagenes/slider-bg-2.jpg");
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+    height: calc(100vh - 22vh);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card-ahorcado {
+    border-radius: 16px;
+    width: 100%;
+    margin: 0 auto;
+    position: relative;
+    padding: 32px 24px 24px 24px;
+}
+
+.column {
+    float: left;
+    width: 33.33%;
+    height: 120px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
 
 #snackbar {
     visibility: hidden;
@@ -57,12 +138,12 @@ text-align: left;
     border-radius: 2px;
     padding: 16px;
     position: fixed;
-    z-index: 1;
+    z-index: 1001;
     left: 50%;
-    bottom: 30px;
+    top: 70%;
     font-size: 17px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.3);
 }
-
 
 #snackbar.Ganador {
     background-color: rgb(46, 165, 28);

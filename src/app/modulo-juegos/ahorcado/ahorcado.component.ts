@@ -13,6 +13,8 @@ import { CommonModule } from '@angular/common';
 })
 export class AhorcadoComponent {
 
+  teclasBloqueadas = false;
+
   URL_IMAGENES_PRE = "/assets/imagenes/ahorcado/"
   URL_IMAGENES_EXT = ".jpg"  
   
@@ -188,6 +190,7 @@ export class AhorcadoComponent {
     }
   
     letraElegida(obj: any) {
+      if (this.teclasBloqueadas) return;
       this.selectedLetter = obj;
       this.game();
     }
@@ -196,15 +199,15 @@ export class AhorcadoComponent {
   
     MostarMensaje(mensaje:string,gano:boolean) {
       this.Mensaje = mensaje;
-     var x = document.getElementById("snackbar");
-     if(gano)
-         x!.className = "show Ganador";
+      var x = document.getElementById("snackbar");
+      if(gano)
+        x!.className = "show Ganador";
       else
-        x!.className = "show Perdedor"
-     var modelo = this;
-     setTimeout(function(){ 
-       x!.className = x!.className.replace("show", "");
-       //modelo.ocultarVerificar=false;
+        x!.className = "show Perdedor";
+      this.teclasBloqueadas = true;
+      setTimeout(() => {
+        x!.className = x!.className.replace("show", "");
+        this.teclasBloqueadas = false;
       }, 3000);
     }
   

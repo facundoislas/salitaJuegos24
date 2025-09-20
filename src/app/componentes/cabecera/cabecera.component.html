@@ -3,8 +3,8 @@
     <div class="header-warp">
       <div class="header-bar-warp d-flex">
         <div>
-          <h2 class="titulo">
-         Mi Sala de Juegos</h2>
+          <h3 class="titulo">
+         La Salita</h3>
       </div>
         <!-- site logo -->				
         <nav class="top-nav-area w-100">
@@ -15,14 +15,14 @@
           </div>
           <div *ngIf="verificarSesion()">
             <div><p>Hola {{this.nombre}}!</p></div>
-            <div ><a routerLink="/" (click)="cerrarSesion()" >Cerrar sesion</a></div>
+            <div><a routerLink="/" (click)="cerrarSesion()" >Cerrar sesion</a></div>
             
           </div></div>
           <!-- Menu -->
           <ul class="main-menu primary-menu" *ngIf="verificarSesion()">
-            <li><a routerLink="/home">Inicio</a></li>
-            <li><a routerLink="/juegos">Juegos</a>
-            </li>
+            <li><a routerLink="/juegos">Inicio</a></li>
+            <!--li><a routerLink="/juegos">Juegos</a>
+            </li-->
             <!--li><a routerLink="/listado">Listado de Resultados</a-->
             <li><a routerLink="chat">Chat</a>
             <li><a>Sobre Mi</a>

@@ -14,16 +14,17 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fa fa-user"></i></span>
                                 </div>
-                                <input type="text" 
-                                       placeholder="Nombre *" 
-                                       class="form-control" 
-                                       name="nombre" 
-                                       formControlName="nombre"
-                                       [class.is-invalid]="formRegistro.get('nombre')?.invalid && formRegistro.get('nombre')?.touched">
+                    <input type="text" 
+                        placeholder="Nombre *" 
+                        class="form-control" 
+                        name="nombre" 
+                        formControlName="nombre"
+                        [class.is-invalid]="formRegistro.get('nombre')?.invalid && formRegistro.get('nombre')?.touched">
                             </div>
                             <div *ngIf="formRegistro.get('nombre')?.invalid && formRegistro.get('nombre')?.touched" class="text-danger">
                               <small *ngIf="formRegistro.get('nombre')?.errors?.['required']">El nombre es requerido</small>
                               <small *ngIf="formRegistro.get('nombre')?.errors?.['minlength']">El nombre debe tener al menos 3 caracteres</small>
+                              <small *ngIf="formRegistro.get('nombre')?.errors?.['pattern']">El nombre no puede contener números</small>
                             </div>
                             
                             <!-- Apellido -->
@@ -31,16 +32,17 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fa fa-user"></i></span>
                                 </div>
-                                <input type="text" 
-                                       placeholder="Apellido *" 
-                                       class="form-control" 
-                                       name="apellido" 
-                                       formControlName="apellido"
-                                       [class.is-invalid]="formRegistro.get('apellido')?.invalid && formRegistro.get('apellido')?.touched">
+                    <input type="text" 
+                        placeholder="Apellido *" 
+                        class="form-control" 
+                        name="apellido" 
+                        formControlName="apellido"
+                        [class.is-invalid]="formRegistro.get('apellido')?.invalid && formRegistro.get('apellido')?.touched">
                             </div>
                             <div *ngIf="formRegistro.get('apellido')?.invalid && formRegistro.get('apellido')?.touched" class="text-danger">
                               <small *ngIf="formRegistro.get('apellido')?.errors?.['required']">El apellido es requerido</small>
                               <small *ngIf="formRegistro.get('apellido')?.errors?.['minlength']">El apellido debe tener al menos 2 caracteres</small>
+                              <small *ngIf="formRegistro.get('nombre')?.errors?.['pattern']">El apellido no puede contener números</small>
                             </div>
                             
                             <!-- Email -->
@@ -121,7 +123,7 @@
                         <div class="form-group">
                             <button class="btn btn-primary" 
                                     (click)="enviar()" 
-                                    [disabled]="formRegistro.invalid">Registrarse</button>
+                                    >Registrarse</button>
                         </div>
                         
                         <div class="form-group">

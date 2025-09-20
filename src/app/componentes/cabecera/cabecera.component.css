@@ -78,6 +78,20 @@ ol {
 	background-image: url("./../../../assets/imagenes/cabecera.png");
 	height: 15vh;
 	padding: 10px 50px 0;
+	/* Crear un contexto para el overlay */
+	/* position ya es fixed, suficiente para posicionar ::before */
+}
+
+/* Overlay oscuro para mejorar contraste del texto sobre la imagen */
+.header-section::before {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.45); /* ajustar opacidad según gusto */
+	pointer-events: none; /* no bloquear clicks */
 }
 
 .header-warp {
@@ -95,23 +109,22 @@ ol {
 	float: right;
 	font-size: 20px;
 	font-weight: 500;
-	
-	padding-top: 3px;
 	display: grid;
-	margin-top: 5px;
-	margin-right: -66px;
+	margin-right: -80px;
+    text-align: right;
 	
 }
 
 .user-panel a {
 	color: rgb(255, 251, 4);
-	text-align: center;
+	text-align: right;
 	text-decoration: none;
+	font-size: 16px;
 }
 
 .user-panel p {
 	color: rgb(255, 251, 4);
-	text-align: center;
+	text-align: right;
 	text-decoration: none;
 }
 
@@ -135,13 +148,14 @@ ol {
 	display: block;
 	font-size: 30px;
 	font-weight: 500;
-	color: rgb(2 236 223);
+	color: #ffffff; /* alto contraste sobre fondo oscuro */
 	margin-right: 10px;
 	padding-bottom: 20px;
 	position: relative;
 	padding-right: 20px;
 	border: #000;
-	text-decoration:none
+	text-decoration:none;
+	text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8), 0 0 2px rgba(0,0,0,0.9); /* refuerzo de legibilidad */
 }
 
 .main-menu li a:after {
@@ -162,7 +176,8 @@ ol {
 }
 
 .main-menu li a:hover {
-	color: #b01ba5;
+	color: #b01ba5; /* acento visible */
+	text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
 }
 
 .main-menu li a:hover:after {
@@ -240,8 +255,9 @@ ol {
 	font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 	font-weight: 500;
 	color: rgb(255, 255, 255);
-	margin-top: -5px;
+	margin-top: -19px;
 	text-align: center;
 	padding-right: 140px;
+	text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8), 0 0 2px rgba(0,0,0,0.9);
 
 }

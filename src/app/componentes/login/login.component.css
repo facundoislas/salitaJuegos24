@@ -97,10 +97,20 @@ color: white;
 
 
 .input-group-prepend span{
-width: 50px;
-background-color: #FFC312;
-color: white;
-border:0 !important;
+    width: 50px;
+    height: 48px;
+    line-height: 48px;
+    background-color: #FFC312;
+    color: white;
+    border:0 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+}
+input.form-control, input[type="text"], input[type="password"], input[type="email"] {
+    height: 48px;
+    line-height: 48px;
 }
 
 #snackbar {

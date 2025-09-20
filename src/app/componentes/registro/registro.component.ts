@@ -1,3 +1,4 @@
+
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Usuario } from '../../clases/usuario';
 import { Firestore, addDoc, collection } from '@angular/fire/firestore';
@@ -40,15 +41,26 @@ export class RegistroComponent implements OnInit, OnDestroy {
   }
 
   formRegistro = this.fb.group({
-    nombre:['', [Validators.required, Validators.minLength(3)]],
-    apellido:['', [Validators.required, Validators.minLength(2)]],
-    email:['', [Validators.required, Validators.email]],
-    contrasena:['', [Validators.required, Validators.minLength(6), Validators.maxLength(8)]],
-    contrasena2:['', [Validators.required, Validators.minLength(6), Validators.maxLength(8)]]
-
-
-
-  })
+    nombre: [
+      '',
+      [
+        Validators.required,
+        Validators.minLength(3),
+        Validators.pattern('^[A-Za-zÁÉÍÓÚáéíóúÑñ ]+$')
+      ]
+    ],
+    apellido: [
+      '',
+      [
+        Validators.required,
+        Validators.minLength(2),
+        Validators.pattern('^[A-Za-zÁÉÍÓÚáéíóúÑñ ]+$')
+      ]
+    ],
+    email: ['', [Validators.required, Validators.email]],
+    contrasena: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(8)]],
+    contrasena2: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(8)]]
+  });
 
   ngOnInit() {
     sessionStorage.clear();
@@ -102,7 +114,7 @@ export class RegistroComponent implements OnInit, OnDestroy {
         
         sessionStorage.setItem("user", this.usuario.email);
         sessionStorage.setItem("muestra", "true");
-        this.router.navigateByUrl('/home', { replaceUrl: true });
+        this.router.navigateByUrl('/juegos', { replaceUrl: true });
       } else {
         this.MostarMensaje("Usuario ya registrado, por favor utilice otro correo", true);
         this.resetForm();

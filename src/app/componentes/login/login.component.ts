@@ -76,7 +76,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         await new Promise(resolve => setTimeout(resolve, 2500));
         sessionStorage.setItem("user", this.user.email);
         sessionStorage.setItem("muestra", "true");
-        this.router.navigateByUrl('/home', { replaceUrl: true });
+        this.router.navigateByUrl('/juegos', { replaceUrl: true });
         this.guardarLogLogin();
       } else {
         this.MostarMensaje("Usuario o Clave incorrectos", true);
